@@ -43,6 +43,64 @@ describe('shouldDo', () => {
     expect(shouldDo(day, dailyTask, options)).to.equal(false);
   });
 
+//////////////////////////////////
+/// Stephen Haugland
+/// EX07 - Test Cases
+
+  it('returns false if startDate is a couple days in the future', () => {
+    dailyTask.startDate = moment().add(2, 'days').toDate();
+
+    expect(shouldDo(day, dailyTask, options)).to.equal(false);
+  });
+
+  it('returns true if startDate is a couple days in past', () => {
+    dailyTask.startDate = moment().subtract(2, 'days').toDate();
+    expect(shouldDo(day, dailyTask, options)).to.equal(true);
+  });
+
+  it('returns false if startDate is far in the future', () => {
+    dailyTask.startDate = moment().add(999, 'days').toDate();
+
+    expect(shouldDo(day, dailyTask, options)).to.equal(false);
+  });
+
+  it('returns true if startDate is long in past', () => {
+    dailyTask.startDate = moment().subtract(999, 'days').toDate();
+    expect(shouldDo(day, dailyTask, options)).to.equal(true);
+  });
+
+  it('returns true if startDate is a year in the past', () => {
+    dailyTask.startDate = moment().subtract(365, 'days').toDate();
+    expect(shouldDo(day, dailyTask, options)).to.equal(true);
+  });
+
+  it('returns false if startDate is a year in the future', () => {
+    dailyTask.startDate = moment().add(365, 'days').toDate();
+    expect(shouldDo(day, dailyTask, options)).to.equal(false);
+  });
+
+  it('returns true if startDate is a year and a day in the past', () => {
+    dailyTask.startDate = moment().subtract(366, 'days').toDate();
+    expect(shouldDo(day, dailyTask, options)).to.equal(true);
+  });
+
+  it('returns false if startDate is a year and a day in the future', () => {
+    dailyTask.startDate = moment().add(366, 'days').toDate();
+    expect(shouldDo(day, dailyTask, options)).to.equal(false);
+  });
+
+  it('returns true if startDate is a year minus a day in the past', () => {
+    dailyTask.startDate = moment().subtract(364, 'days').toDate();
+    expect(shouldDo(day, dailyTask, options)).to.equal(true);
+  });
+
+  it('returns false if startDate is a year minus a day in the future', () => {
+    dailyTask.startDate = moment().add(364, 'days').toDate();
+    expect(shouldDo(day, dailyTask, options)).to.equal(false);
+  });
+
+  ///////////////////////////////
+
   context('Timezone variations', () => {
     context('User timezone is UTC', () => {
       beforeEach(() => {
